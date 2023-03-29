@@ -19,7 +19,7 @@ namespace Cansat2023
 
         private void button1_Click(object sender, EventArgs e)
         {
-            velocimetro1.Speed = Convert.ToDouble(textBox1.Text);
+            velocimetro1.Speed = Convert.ToDouble(textBox1.Text);///
         }
     }
 }
