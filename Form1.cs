@@ -17,15 +17,25 @@ namespace Cansat2023
     {
         System.Drawing.Text.PrivateFontCollection privateFonts = new System.Drawing.Text.PrivateFontCollection();
         System.Drawing.Font font;
+        int stageNumber;
         public Form1()
         {
             InitializeComponent();
-            
-            cambiarImagenStage();
+
+            //INICIALIZO IMÁGENES EN ESTADO DISABLE DE FLAG, HEAT SHIELD Y PARACHUTE
+            picFlag.ImageLocation = @"..\..\Resources\Images\Flag2Transp.png";
+            picHeatShield.ImageLocation = @"..\..\Resources\Images\HeatShieldDeploySmallTransp.png";
+            picParachute.ImageLocation = @"..\..\Resources\Images\FirstParachuteSmallTransp.png";
+
+            //FUNCIÓN PARA CAMBIAR EL ESTADO SEGÚN NÚMEROS DEL 0 AL 6. AVISAR SI FALTAN
+            //0 = Despegar, 1= Ascender, 2= FirstParachute, 3= Payload 500m,4= HeatShiel, 5= SecondParachute, 6= Flag
+
+            stageNumber = 4;
+            cambiarImagenStage(stageNumber);
 
             //AGREGO NUEVAS FUENTES
           
-            privateFonts.AddFontFile(@"C:\Users\micae\code\Cansat2023_desktopApp\Resources\Fonts\Guardians.ttf");
+            privateFonts.AddFontFile(@"..\..\Resources\Fonts\Guardians.ttf");
             font = new Font(privateFonts.Families[0], 12);
             aplicarFuentes();
 
@@ -97,10 +107,54 @@ namespace Cansat2023
 
         }
 
-        private void cambiarImagenStage()
+        private void cambiarImagenStage(int stage)
         {
-            picStage.ImageLocation = @"C:\Users\micae\code\Cansat2023_desktopApp\Resources\Images\Ascendiendo.png";
-            picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+            switch (stage)
+            {
+                case 0:
+                    lblStage.Text = "Take Off";
+                    picStage.ImageLocation = @"..\..\Resources\Images\Despegando.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+                case 1:
+                    lblStage.Text = "Ascent";
+                    picStage.ImageLocation = @"..\..\Resources\Images\Ascent.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+         
+                case 2:
+                    lblStage.Text = "First Parachute";
+                    picStage.ImageLocation = @"..\..\Resources\Images\FirstParachuteSmall.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+                case 3:
+                    lblStage.Text = "Payload at 500m";
+                    picStage.ImageLocation = @"..\..\Resources\Images\PayloadAt500Small.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+                case 4:
+                    lblStage.Text = "Heat Shield Deploy";
+                    picStage.ImageLocation = @"..\..\Resources\Images\HeatShieldDeploySmall.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+                case 5:
+                    lblStage.Text = "Second Parachute";
+                    picStage.ImageLocation = @"..\..\Resources\Images\SecondParachuteSmall.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+                case 6:
+                    lblStage.Text = "Flag Display";
+                    picStage.ImageLocation = @"..\..\Resources\Images\Flag2.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+            }
+            
         }
 
         private void button1_Click_1(object sender, EventArgs e)
