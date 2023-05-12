@@ -11,21 +11,29 @@ using System.Windows.Forms.DataVisualization.Charting;
 using GMap.NET.MapProviders;
 using GMap.NET;
 using System.Net;
-
 namespace Cansat2023
 {
     public partial class Form1 : Form
     {
+        System.Drawing.Text.PrivateFontCollection privateFonts = new System.Drawing.Text.PrivateFontCollection();
+        System.Drawing.Font font;
         public Form1()
         {
             InitializeComponent();
 
+
+            //AGREGO NUEVAS FUENTES
+          
+            privateFonts.AddFontFile(@"C:\Users\micae\code\Cansat2023_desktopApp\Resources\Fonts\Guardians.ttf");
+            font = new Font(privateFonts.Families[0], 12);
+            aplicarFuentes();
+
+            
             //EJEMPLO USO DE CHART
 
             chartAltitude.Series["Series1"].ChartType = SeriesChartType.Spline; // Tipo de grafica: Bar, Column
             chartAltitude.Series["Series1"].BorderWidth = 2; // Borde de la grafica
             chartAltitude.Series["Series1"].Color = Color.DarkRed; // Color de la grafica
-            //chartAltitude.Series["Series1"].LegendText; // Label o etiqueta
 
             Dictionary<string, int> dic = new Dictionary<string, int>();
             dic.Add("00:00:02", 576);
@@ -45,18 +53,13 @@ namespace Cansat2023
             }
 
             //EJEMPLO USO DEL MAPA
-
-            //GMapProvider.WebProxy = WebRequest.GetSystemWebProxy();
-            //GMapProvider.WebProxy.Credentials = CredentialCache.DefaultNetworkCredentials;
-            //this.gMapControl1.MapProvider = OpenStreet4UMapProvider.Instance; // Establecer la fuente del mapa
-
-          
             gMapControl1.Manager.Mode = AccessMode.ServerAndCache; // modo de trabajo GMap
             gMapControl1.AutoScroll = true;
             gMapControl1.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             gMapControl1.DragButton = MouseButtons.Left;
 
             // Establecer el centro del mapa usando latitud y longitud
+            //gMapControl1.MapProvider = OpenStreet4UMapProvider.Instance; // Establecer la fuente del mapa
             // gMapControl1.Position = new GMap.NET.PointLatLng(39.923518, 116.539009);
             //gMapControl1.SetPositionByKeywords("Argentina"); // posición central del mapa
             gMapControl1.Position = new GMap.NET.PointLatLng(-24.789300, -65.410320);
@@ -70,15 +73,47 @@ namespace Cansat2023
         private void button1_Click(object sender, EventArgs e)
         {
             velocimetroPressure.Speed = Convert.ToDouble(100);///
-
         
         }
 
-    
 
         private void gMapControl1_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void aplicarFuentes()
+        {
+            lblTeam.Font = new Font("Guardians", 30);
+            lblTitleMissionTime.Font = new Font("Guardians", 10);
+            lblTitlePacketCount.Font = new Font("Guardians", 10);
+            lblStageTitle.Font = new Font("Guardians", 10);
+            lblTitleAltitude.Font = new Font("Guardians", 9);
+            lblTitleGPS.Font = new Font("Guardians", 9);
+            lblTitleAltitude.Font = new Font("Guardians", 9);
+            lblTitleVelocs.Font = new Font("Guardians", 9);
+            lblTitleTelemetry.Font = new Font("Guardians", 9);
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
