@@ -30,9 +30,9 @@ namespace Cansat2023
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.lblPacketCount = new System.Windows.Forms.Label();
             this.lblMissionTime = new System.Windows.Forms.Label();
@@ -43,6 +43,8 @@ namespace Cansat2023
             this.lblTitleMissionTime = new System.Windows.Forms.Label();
             this.lblTeam = new System.Windows.Forms.Label();
             this.panelTelemetry = new System.Windows.Forms.Panel();
+            this.lblCommand = new System.Windows.Forms.Label();
+            this.lblReceived = new System.Windows.Forms.Label();
             this.lblTitleTelemetry = new System.Windows.Forms.Label();
             this.btnSend = new System.Windows.Forms.Button();
             this.txtCommand = new System.Windows.Forms.TextBox();
@@ -71,6 +73,9 @@ namespace Cansat2023
             this.lblAlt = new System.Windows.Forms.Label();
             this.lblTitleAltitude = new System.Windows.Forms.Label();
             this.chartAltitude = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblCsvPath = new System.Windows.Forms.Label();
+            this.txtCsvPath = new System.Windows.Forms.TextBox();
             this.panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picStage)).BeginInit();
             this.panelTelemetry.SuspendLayout();
@@ -95,16 +100,16 @@ namespace Cansat2023
             this.panelHeader.Controls.Add(this.lblTitlePacketCount);
             this.panelHeader.Controls.Add(this.lblTitleMissionTime);
             this.panelHeader.Controls.Add(this.lblTeam);
-            this.panelHeader.Location = new System.Drawing.Point(12, 6);
+            this.panelHeader.Location = new System.Drawing.Point(12, 3);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(1326, 117);
+            this.panelHeader.Size = new System.Drawing.Size(1326, 123);
             this.panelHeader.TabIndex = 4;
             // 
             // lblPacketCount
             // 
             this.lblPacketCount.AutoSize = true;
             this.lblPacketCount.Font = new System.Drawing.Font("Guardians", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPacketCount.Location = new System.Drawing.Point(221, 63);
+            this.lblPacketCount.Location = new System.Drawing.Point(214, 70);
             this.lblPacketCount.Name = "lblPacketCount";
             this.lblPacketCount.Size = new System.Drawing.Size(21, 18);
             this.lblPacketCount.TabIndex = 9;
@@ -114,7 +119,7 @@ namespace Cansat2023
             // 
             this.lblMissionTime.AutoSize = true;
             this.lblMissionTime.Font = new System.Drawing.Font("Guardians", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMissionTime.Location = new System.Drawing.Point(193, 19);
+            this.lblMissionTime.Location = new System.Drawing.Point(193, 33);
             this.lblMissionTime.Name = "lblMissionTime";
             this.lblMissionTime.Size = new System.Drawing.Size(92, 18);
             this.lblMissionTime.TabIndex = 8;
@@ -123,10 +128,10 @@ namespace Cansat2023
             // lblStage
             // 
             this.lblStage.AutoSize = true;
-            this.lblStage.Font = new System.Drawing.Font("Stencil", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStage.Location = new System.Drawing.Point(970, 63);
+            this.lblStage.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblStage.Location = new System.Drawing.Point(972, 64);
             this.lblStage.Name = "lblStage";
-            this.lblStage.Size = new System.Drawing.Size(50, 14);
+            this.lblStage.Size = new System.Drawing.Size(47, 17);
             this.lblStage.TabIndex = 7;
             this.lblStage.Text = "ASCENT";
             // 
@@ -134,7 +139,7 @@ namespace Cansat2023
             // 
             this.lblStageTitle.AutoSize = true;
             this.lblStageTitle.Font = new System.Drawing.Font("Guardians", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblStageTitle.Location = new System.Drawing.Point(959, 19);
+            this.lblStageTitle.Location = new System.Drawing.Point(959, 33);
             this.lblStageTitle.Name = "lblStageTitle";
             this.lblStageTitle.Size = new System.Drawing.Size(78, 18);
             this.lblStageTitle.TabIndex = 6;
@@ -142,10 +147,11 @@ namespace Cansat2023
             // 
             // picStage
             // 
-            this.picStage.ImageLocation = "C:\\Universidad\\Robotica\\Docs\\LogoCansat.jfif";
-            this.picStage.Location = new System.Drawing.Point(1101, 3);
+            this.picStage.ImageLocation = "";
+            this.picStage.Location = new System.Drawing.Point(1136, 8);
             this.picStage.Name = "picStage";
-            this.picStage.Size = new System.Drawing.Size(185, 107);
+            this.picStage.Size = new System.Drawing.Size(102, 100);
+            this.picStage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picStage.TabIndex = 5;
             this.picStage.TabStop = false;
             // 
@@ -153,7 +159,7 @@ namespace Cansat2023
             // 
             this.lblTitlePacketCount.AutoSize = true;
             this.lblTitlePacketCount.Font = new System.Drawing.Font("Guardians", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitlePacketCount.Location = new System.Drawing.Point(28, 63);
+            this.lblTitlePacketCount.Location = new System.Drawing.Point(28, 70);
             this.lblTitlePacketCount.Name = "lblTitlePacketCount";
             this.lblTitlePacketCount.Size = new System.Drawing.Size(169, 18);
             this.lblTitlePacketCount.TabIndex = 2;
@@ -163,7 +169,7 @@ namespace Cansat2023
             // 
             this.lblTitleMissionTime.AutoSize = true;
             this.lblTitleMissionTime.Font = new System.Drawing.Font("Guardians", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitleMissionTime.Location = new System.Drawing.Point(28, 19);
+            this.lblTitleMissionTime.Location = new System.Drawing.Point(28, 33);
             this.lblTitleMissionTime.Name = "lblTitleMissionTime";
             this.lblTitleMissionTime.Size = new System.Drawing.Size(159, 18);
             this.lblTitleMissionTime.TabIndex = 1;
@@ -183,14 +189,36 @@ namespace Cansat2023
             // panelTelemetry
             // 
             this.panelTelemetry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTelemetry.Controls.Add(this.lblCommand);
+            this.panelTelemetry.Controls.Add(this.lblReceived);
             this.panelTelemetry.Controls.Add(this.lblTitleTelemetry);
             this.panelTelemetry.Controls.Add(this.btnSend);
             this.panelTelemetry.Controls.Add(this.txtCommand);
             this.panelTelemetry.Controls.Add(this.txtReceived);
-            this.panelTelemetry.Location = new System.Drawing.Point(12, 603);
+            this.panelTelemetry.Location = new System.Drawing.Point(12, 612);
             this.panelTelemetry.Name = "panelTelemetry";
-            this.panelTelemetry.Size = new System.Drawing.Size(1326, 114);
+            this.panelTelemetry.Size = new System.Drawing.Size(1326, 121);
             this.panelTelemetry.TabIndex = 5;
+            // 
+            // lblCommand
+            // 
+            this.lblCommand.AutoSize = true;
+            this.lblCommand.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCommand.Location = new System.Drawing.Point(54, 67);
+            this.lblCommand.Name = "lblCommand";
+            this.lblCommand.Size = new System.Drawing.Size(63, 17);
+            this.lblCommand.TabIndex = 16;
+            this.lblCommand.Text = "Command";
+            // 
+            // lblReceived
+            // 
+            this.lblReceived.AutoSize = true;
+            this.lblReceived.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblReceived.Location = new System.Drawing.Point(54, 40);
+            this.lblReceived.Name = "lblReceived";
+            this.lblReceived.Size = new System.Drawing.Size(58, 17);
+            this.lblReceived.TabIndex = 12;
+            this.lblReceived.Text = "Received";
             // 
             // lblTitleTelemetry
             // 
@@ -215,21 +243,19 @@ namespace Cansat2023
             // 
             // txtCommand
             // 
-            this.txtCommand.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtCommand.Location = new System.Drawing.Point(21, 64);
+            this.txtCommand.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCommand.Location = new System.Drawing.Point(129, 64);
             this.txtCommand.Name = "txtCommand";
-            this.txtCommand.Size = new System.Drawing.Size(1056, 21);
+            this.txtCommand.Size = new System.Drawing.Size(948, 22);
             this.txtCommand.TabIndex = 1;
-            this.txtCommand.Text = "Command";
             // 
             // txtReceived
             // 
-            this.txtReceived.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtReceived.Location = new System.Drawing.Point(21, 38);
+            this.txtReceived.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtReceived.Location = new System.Drawing.Point(129, 38);
             this.txtReceived.Name = "txtReceived";
-            this.txtReceived.Size = new System.Drawing.Size(1056, 21);
+            this.txtReceived.Size = new System.Drawing.Size(948, 22);
             this.txtReceived.TabIndex = 0;
-            this.txtReceived.Text = "Received";
             // 
             // panelVeloc
             // 
@@ -243,36 +269,36 @@ namespace Cansat2023
             this.panelVeloc.Controls.Add(this.velocimetroPressure);
             this.panelVeloc.Location = new System.Drawing.Point(12, 125);
             this.panelVeloc.Name = "panelVeloc";
-            this.panelVeloc.Size = new System.Drawing.Size(639, 212);
+            this.panelVeloc.Size = new System.Drawing.Size(639, 208);
             this.panelVeloc.TabIndex = 5;
             // 
             // lblVolt
             // 
             this.lblVolt.AutoSize = true;
-            this.lblVolt.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVolt.Location = new System.Drawing.Point(476, 179);
+            this.lblVolt.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblVolt.Location = new System.Drawing.Point(480, 177);
             this.lblVolt.Name = "lblVolt";
-            this.lblVolt.Size = new System.Drawing.Size(74, 13);
+            this.lblVolt.Size = new System.Drawing.Size(66, 17);
             this.lblVolt.TabIndex = 11;
             this.lblVolt.Text = "Voltage (v)";
             // 
             // lblPress
             // 
             this.lblPress.AutoSize = true;
-            this.lblPress.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPress.Location = new System.Drawing.Point(267, 177);
+            this.lblPress.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPress.Location = new System.Drawing.Point(271, 177);
             this.lblPress.Name = "lblPress";
-            this.lblPress.Size = new System.Drawing.Size(96, 13);
+            this.lblPress.Size = new System.Drawing.Size(88, 17);
             this.lblPress.TabIndex = 10;
             this.lblPress.Text = "Pressure (kPa)";
             // 
             // lblTemp
             // 
             this.lblTemp.AutoSize = true;
-            this.lblTemp.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTemp.Location = new System.Drawing.Point(67, 177);
+            this.lblTemp.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTemp.Location = new System.Drawing.Point(72, 177);
             this.lblTemp.Name = "lblTemp";
-            this.lblTemp.Size = new System.Drawing.Size(110, 13);
+            this.lblTemp.Size = new System.Drawing.Size(101, 17);
             this.lblTemp.TabIndex = 9;
             this.lblTemp.Text = "Temperature (C°)";
             // 
@@ -340,9 +366,9 @@ namespace Cansat2023
             this.panelGPS.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelGPS.Controls.Add(this.gMapControl1);
             this.panelGPS.Controls.Add(this.lblTitleGPS);
-            this.panelGPS.Location = new System.Drawing.Point(651, 125);
+            this.panelGPS.Location = new System.Drawing.Point(650, 125);
             this.panelGPS.Name = "panelGPS";
-            this.panelGPS.Size = new System.Drawing.Size(466, 488);
+            this.panelGPS.Size = new System.Drawing.Size(466, 413);
             this.panelGPS.TabIndex = 5;
             // 
             // gMapControl1
@@ -353,7 +379,7 @@ namespace Cansat2023
             this.gMapControl1.GrayScaleMode = false;
             this.gMapControl1.HelperLineOption = GMap.NET.WindowsForms.HelperLineOptions.DontShow;
             this.gMapControl1.LevelsKeepInMemory = 5;
-            this.gMapControl1.Location = new System.Drawing.Point(26, 71);
+            this.gMapControl1.Location = new System.Drawing.Point(45, 35);
             this.gMapControl1.MarkersEnabled = true;
             this.gMapControl1.MaxZoom = 17;
             this.gMapControl1.MinZoom = 3;
@@ -367,7 +393,7 @@ namespace Cansat2023
             this.gMapControl1.ScaleMode = GMap.NET.WindowsForms.ScaleModes.Integer;
             this.gMapControl1.SelectedAreaFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))), ((int)(((byte)(225)))));
             this.gMapControl1.ShowTileGridLines = false;
-            this.gMapControl1.Size = new System.Drawing.Size(404, 371);
+            this.gMapControl1.Size = new System.Drawing.Size(379, 359);
             this.gMapControl1.TabIndex = 13;
             this.gMapControl1.Zoom = 0D;
             this.gMapControl1.Load += new System.EventHandler(this.gMapControl1_Load);
@@ -377,7 +403,7 @@ namespace Cansat2023
             this.lblTitleGPS.AutoSize = true;
             this.lblTitleGPS.Font = new System.Drawing.Font("Guardians", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTitleGPS.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.lblTitleGPS.Location = new System.Drawing.Point(71, 24);
+            this.lblTitleGPS.Location = new System.Drawing.Point(71, 6);
             this.lblTitleGPS.Name = "lblTitleGPS";
             this.lblTitleGPS.Size = new System.Drawing.Size(310, 17);
             this.lblTitleGPS.TabIndex = 12;
@@ -400,10 +426,10 @@ namespace Cansat2023
             // 
             // button4
             // 
-            this.button4.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.Location = new System.Drawing.Point(72, 433);
+            this.button4.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.Location = new System.Drawing.Point(72, 442);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 23);
+            this.button4.Size = new System.Drawing.Size(83, 23);
             this.button4.TabIndex = 6;
             this.button4.Text = "button4";
             this.button4.UseVisualStyleBackColor = true;
@@ -411,10 +437,10 @@ namespace Cansat2023
             // 
             // button3
             // 
-            this.button3.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(72, 389);
+            this.button3.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button3.Location = new System.Drawing.Point(72, 401);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
+            this.button3.Size = new System.Drawing.Size(83, 23);
             this.button3.TabIndex = 5;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
@@ -422,10 +448,10 @@ namespace Cansat2023
             // 
             // button2
             // 
-            this.button2.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(72, 346);
+            this.button2.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(72, 358);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(83, 23);
             this.button2.TabIndex = 4;
             this.button2.Text = "button2";
             this.button2.UseVisualStyleBackColor = true;
@@ -433,10 +459,10 @@ namespace Cansat2023
             // 
             // button1
             // 
-            this.button1.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(72, 307);
+            this.button1.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(72, 317);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.TabIndex = 3;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -444,9 +470,9 @@ namespace Cansat2023
             // 
             // pictureBox3
             // 
-            this.pictureBox3.Location = new System.Drawing.Point(59, 208);
+            this.pictureBox3.Location = new System.Drawing.Point(59, 214);
             this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(100, 82);
+            this.pictureBox3.Size = new System.Drawing.Size(108, 82);
             this.pictureBox3.TabIndex = 2;
             this.pictureBox3.TabStop = false;
             // 
@@ -454,15 +480,15 @@ namespace Cansat2023
             // 
             this.pictureBox2.Location = new System.Drawing.Point(59, 117);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 79);
+            this.pictureBox2.Size = new System.Drawing.Size(108, 79);
             this.pictureBox2.TabIndex = 1;
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(59, 24);
+            this.pictureBox1.Location = new System.Drawing.Point(59, 15);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 80);
+            this.pictureBox1.Size = new System.Drawing.Size(108, 80);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -473,6 +499,7 @@ namespace Cansat2023
             this.panel1.Controls.Add(this.lblAlt);
             this.panel1.Controls.Add(this.lblTitleAltitude);
             this.panel1.Controls.Add(this.chartAltitude);
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Location = new System.Drawing.Point(12, 332);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(639, 281);
@@ -481,20 +508,20 @@ namespace Cansat2023
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTime.Location = new System.Drawing.Point(566, 266);
+            this.lblTime.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTime.Location = new System.Drawing.Point(581, 250);
             this.lblTime.Name = "lblTime";
-            this.lblTime.Size = new System.Drawing.Size(33, 13);
+            this.lblTime.Size = new System.Drawing.Size(35, 17);
             this.lblTime.TabIndex = 14;
             this.lblTime.Text = "Time";
             // 
             // lblAlt
             // 
             this.lblAlt.AutoSize = true;
-            this.lblAlt.Font = new System.Drawing.Font("Stencil", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAlt.Location = new System.Drawing.Point(18, 25);
+            this.lblAlt.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAlt.Location = new System.Drawing.Point(18, 21);
             this.lblAlt.Name = "lblAlt";
-            this.lblAlt.Size = new System.Drawing.Size(80, 13);
+            this.lblAlt.Size = new System.Drawing.Size(72, 17);
             this.lblAlt.TabIndex = 13;
             this.lblAlt.Text = "Altitude (m)";
             // 
@@ -512,32 +539,62 @@ namespace Cansat2023
             // chartAltitude
             // 
             this.chartAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            chartArea3.Name = "ChartArea1";
-            this.chartAltitude.ChartAreas.Add(chartArea3);
-            legend3.Enabled = false;
-            legend3.Name = "Legend1";
-            this.chartAltitude.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chartAltitude.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chartAltitude.Legends.Add(legend1);
             this.chartAltitude.Location = new System.Drawing.Point(47, 41);
             this.chartAltitude.Name = "chartAltitude";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartAltitude.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartAltitude.Series.Add(series1);
             this.chartAltitude.Size = new System.Drawing.Size(528, 223);
             this.chartAltitude.TabIndex = 5;
             this.chartAltitude.Text = "chart1";
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Location = new System.Drawing.Point(638, 194);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(462, 85);
+            this.panel2.TabIndex = 8;
+            // 
+            // lblCsvPath
+            // 
+            this.lblCsvPath.AutoSize = true;
+            this.lblCsvPath.Font = new System.Drawing.Font("Impact", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCsvPath.Location = new System.Drawing.Point(683, 565);
+            this.lblCsvPath.Name = "lblCsvPath";
+            this.lblCsvPath.Size = new System.Drawing.Size(57, 17);
+            this.lblCsvPath.TabIndex = 13;
+            this.lblCsvPath.Text = "CSV PATH";
+            // 
+            // txtCsvPath
+            // 
+            this.txtCsvPath.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtCsvPath.Location = new System.Drawing.Point(760, 563);
+            this.txtCsvPath.Margin = new System.Windows.Forms.Padding(5, 3, 3, 3);
+            this.txtCsvPath.Name = "txtCsvPath";
+            this.txtCsvPath.Size = new System.Drawing.Size(315, 22);
+            this.txtCsvPath.TabIndex = 17;
+            this.txtCsvPath.Text = "C:\\cansat2023\\csv\\";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.txtCsvPath);
+            this.Controls.Add(this.lblCsvPath);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelButtons);
             this.Controls.Add(this.panelGPS);
             this.Controls.Add(this.panelVeloc);
-            this.Controls.Add(this.panelTelemetry);
             this.Controls.Add(this.panelHeader);
+            this.Controls.Add(this.panelTelemetry);
             this.Name = "Form1";
             this.Text = "CanSat Competition 2023 - Team 1022";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -558,6 +615,7 @@ namespace Cansat2023
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartAltitude)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -605,6 +663,11 @@ namespace Cansat2023
         private System.Windows.Forms.Label lblTitleTelemetry;
         private System.Windows.Forms.Label lblMissionTime;
         private System.Windows.Forms.Label lblPacketCount;
+        private System.Windows.Forms.Label lblCommand;
+        private System.Windows.Forms.Label lblReceived;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label lblCsvPath;
+        private System.Windows.Forms.TextBox txtCsvPath;
     }
 }
 

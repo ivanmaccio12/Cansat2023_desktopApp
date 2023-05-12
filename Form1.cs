@@ -20,7 +20,8 @@ namespace Cansat2023
         public Form1()
         {
             InitializeComponent();
-
+            
+            cambiarImagenStage();
 
             //AGREGO NUEVAS FUENTES
           
@@ -94,6 +95,12 @@ namespace Cansat2023
             lblTitleVelocs.Font = new Font("Guardians", 9);
             lblTitleTelemetry.Font = new Font("Guardians", 9);
 
+        }
+
+        private void cambiarImagenStage()
+        {
+            picStage.ImageLocation = @"C:\Users\micae\code\Cansat2023_desktopApp\Resources\Images\Ascendiendo.png";
+            picStage.SizeMode = PictureBoxSizeMode.StretchImage;
         }
 
         private void button1_Click_1(object sender, EventArgs e)
