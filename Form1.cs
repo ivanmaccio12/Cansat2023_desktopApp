@@ -95,8 +95,9 @@ namespace Cansat2023
         private void aplicarFuentes()
         {
             lblTeam.Font = new Font("Guardians", 30);
-            lblTitleMissionTime.Font = new Font("Guardians", 10);
-            lblTitlePacketCount.Font = new Font("Guardians", 10);
+            lblTitleMissionTime.Font = new Font("Guardians", 9);
+            lblTitleSerialPort.Font = new Font("Guardians", 9);
+            lblTitlePacketCount.Font = new Font("Guardians", 9);
             lblStageTitle.Font = new Font("Guardians", 10);
             lblTitleAltitude.Font = new Font("Guardians", 9);
             lblTitleGPS.Font = new Font("Guardians", 9);
@@ -339,6 +340,11 @@ namespace Cansat2023
             }
             serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
             
+        }
+
+        private void lblGPSTime_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
