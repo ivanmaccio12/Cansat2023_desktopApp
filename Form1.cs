@@ -72,7 +72,7 @@ namespace Cansat2023
             gMapControl1.Position = new GMap.NET.PointLatLng(-24.789300, -65.410320);
             gMapControl1.MinZoom = 3;
             gMapControl1.MaxZoom = 17;
-            gMapControl1.Zoom = 5;
+            gMapControl1.Zoom = 15;
 
             export = "C:/cansat 2023/csv/"; //Direccion para ubicar el archivo csv
 
@@ -471,7 +471,7 @@ namespace Cansat2023
             gMapControl1.Position = new GMap.NET.PointLatLng(lat, longitud);
             gMapControl1.MinZoom = 3;
             gMapControl1.MaxZoom = 17;
-            gMapControl1.Zoom = 8;
+            gMapControl1.Zoom = 15;
         }
     }
 }
