@@ -32,9 +32,9 @@ namespace Cansat2023
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.lblTitleSerialPort = new System.Windows.Forms.Label();
             this.comboSerialPorts = new System.Windows.Forms.ComboBox();
@@ -173,6 +173,7 @@ namespace Cansat2023
             this.btnDisconnect.TabIndex = 11;
             this.btnDisconnect.Text = "DISCONNECT";
             this.btnDisconnect.UseVisualStyleBackColor = true;
+            this.btnDisconnect.Click += new System.EventHandler(this.btnDisconnect_Click);
             // 
             // btnConnect
             // 
@@ -568,33 +569,33 @@ namespace Cansat2023
             // lblFlag
             // 
             this.lblFlag.AutoSize = true;
-            this.lblFlag.Font = new System.Drawing.Font("Guardians", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFlag.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFlag.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lblFlag.Location = new System.Drawing.Point(87, 243);
             this.lblFlag.Name = "lblFlag";
-            this.lblFlag.Size = new System.Drawing.Size(54, 15);
+            this.lblFlag.Size = new System.Drawing.Size(27, 13);
             this.lblFlag.TabIndex = 16;
             this.lblFlag.Text = "Flag";
             // 
             // lblHeatShield
             // 
             this.lblHeatShield.AutoSize = true;
-            this.lblHeatShield.Font = new System.Drawing.Font("Guardians", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHeatShield.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblHeatShield.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lblHeatShield.Location = new System.Drawing.Point(51, 132);
             this.lblHeatShield.Name = "lblHeatShield";
-            this.lblHeatShield.Size = new System.Drawing.Size(121, 15);
+            this.lblHeatShield.Size = new System.Drawing.Size(60, 13);
             this.lblHeatShield.TabIndex = 15;
             this.lblHeatShield.Text = "Heat shield";
             // 
             // lblParachute
             // 
             this.lblParachute.AutoSize = true;
-            this.lblParachute.Font = new System.Drawing.Font("Guardians", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblParachute.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblParachute.ForeColor = System.Drawing.SystemColors.Highlight;
             this.lblParachute.Location = new System.Drawing.Point(58, 20);
             this.lblParachute.Name = "lblParachute";
-            this.lblParachute.Size = new System.Drawing.Size(110, 15);
+            this.lblParachute.Size = new System.Drawing.Size(56, 13);
             this.lblParachute.TabIndex = 14;
             this.lblParachute.Text = "Parachute";
             // 
@@ -675,17 +676,17 @@ namespace Cansat2023
             // chartAltitude
             // 
             this.chartAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            chartArea3.Name = "ChartArea1";
-            this.chartAltitude.ChartAreas.Add(chartArea3);
-            legend3.Enabled = false;
-            legend3.Name = "Legend1";
-            this.chartAltitude.Legends.Add(legend3);
+            chartArea1.Name = "ChartArea1";
+            this.chartAltitude.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chartAltitude.Legends.Add(legend1);
             this.chartAltitude.Location = new System.Drawing.Point(47, 41);
             this.chartAltitude.Name = "chartAltitude";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.chartAltitude.Series.Add(series3);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartAltitude.Series.Add(series1);
             this.chartAltitude.Size = new System.Drawing.Size(528, 223);
             this.chartAltitude.TabIndex = 5;
             this.chartAltitude.Text = "chart1";

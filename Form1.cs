@@ -28,6 +28,7 @@ namespace Cansat2023
         public static List<byte> bufferout = new List<byte>(); //buffer de tramas salientes
         public static List<string> telemetry = new List<string>();
         public static int packetCount = 0;
+        Dictionary<string, int> arrayAltitudes = new Dictionary<string, int>(); //Array de datos para el grafico
         public Form1()
         {
             InitializeComponent();
@@ -55,23 +56,8 @@ namespace Cansat2023
             chartAltitude.Series["Series1"].ChartType = SeriesChartType.Spline; // Tipo de grafica: Bar, Column
             chartAltitude.Series["Series1"].BorderWidth = 2; // Borde de la grafica
             chartAltitude.Series["Series1"].Color = Color.DarkRed; // Color de la grafica
+            arrayAltitudes.Clear(); // inicializa el arrayAltitudes
 
-            Dictionary<string, int> dic = new Dictionary<string, int>();
-            dic.Add("00:00:02", 576);
-            dic.Add("00:00:03", 687);
-            dic.Add("00:00:04", 761);
-            dic.Add("00:00:05", 860);
-            dic.Add("00:00:06", 774);
-            dic.Add("00:00:07", 576);
-            dic.Add("00:00:08", 487);
-            dic.Add("00:00:09", 261);
-            dic.Add("00:00:10", 200);
-            dic.Add("00:00:11", 174);
-
-            foreach (KeyValuePair<string, int> d in dic)
-            {
-                chartAltitude.Series["Series1"].Points.AddXY(d.Key, d.Value);
-            }
 
             //EJEMPLO USO DEL MAPA
             gMapControl1.Manager.Mode = AccessMode.ServerAndCache; // modo de trabajo GMap
@@ -197,25 +183,83 @@ namespace Cansat2023
         private void btnConnect_Click(object sender, EventArgs e)
         {
             init();
-            btnConnect.BackColor = Color.PaleGreen;
         }
 
         static bool _continue;
         public void init()
         {
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
-            serialPort1.PortName = portname;
-            if (!serialPort1.IsOpen)
+            if (portname != null)
             {
-                serialPort1.Open();
-                serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveData); //Activa el metodo que se pone a escuchar lo que entra por el puerto serie
-            }
+                serialPort1.PortName = portname;
+                if (!serialPort1.IsOpen)
+                {
+                    serialPort1.Open();
+                    serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveData); //Activa el metodo que se pone a escuchar lo que entra por el puerto serie
+                }
 
-            _continue = true;
+                telemetryOn(); //enciende la telemetria
+                btnConnect.BackColor = Color.PaleGreen;
+                _continue = true;
+            }
+            else
+            {
+                MessageBox.Show("You should select an Serial Port");
+            }
+            
 
 
 
         }
+
+        private void telemetryOn ()
+        {
+            try
+            {
+                if (txtReceived.Text == "")
+                {
+                    string cmd = "CMD,1022,CX,ON";
+
+                    bufferout.Clear();
+                    bufferout.Add(0x7E);
+                    bufferout.Add(0x00);
+                    bufferout.Add((byte)(cmd.Length + 5));
+                    bufferout.Add(0x01);
+                    bufferout.Add(0x01);
+                    bufferout.Add(0x00); //0x01 
+                    bufferout.Add(0x10); //0x11
+                    bufferout.Add(0x00);
+
+                    for (int i = 0; i < cmd.Length; i++)
+                    {
+                        bufferout.Add((byte)cmd[i]);
+                    }
+                    byte chkaux = 0;
+                    for (int i = 3; i < cmd.Length + 8; i++)
+                    {
+                        chkaux += bufferout[i];
+                    }
+                    chkaux = (byte)(0xFF - chkaux);
+                    bufferout.Add(chkaux);
+
+
+
+
+                    if (!serialPort1.IsOpen)
+                    {
+                        serialPort1.Open();
+
+                    }
+                    serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }   
 
         private void port_OnReceiveData(object sender,
                                   SerialDataReceivedEventArgs e)
@@ -317,7 +361,29 @@ namespace Cansat2023
 
             lblMissionTime.Text = payloadTelemetry.MissionTime;
             lblPacketCount.Text = payloadTelemetry.PacketCount;
+            lblMode.Text = payloadTelemetry.Mode;
+            lblGPSTime.Text = payloadTelemetry.GPS_TIME;
+            lblGPSAlt.Text = payloadTelemetry.GPS_ALTITUDE;
+            lblGPSLat.Text = payloadTelemetry.GPS_LATITUDE;
+            lblGPSLong.Text = payloadTelemetry.GPS_LONGITUDE;
+            lblGPSSat.Text = payloadTelemetry.GPS_SATS;
+            lblTilt.Text = payloadTelemetry.TILT_XTILT_Y;
+
+
+            //velocimetros
             velocimetroTemp.Speed = Convert.ToDouble(payloadTelemetry.TEMPERATURE);
+            velocimetroPressure.Speed = Convert.ToDouble(payloadTelemetry.PRESSURE);
+            velocimetroVoltage.Speed = Convert.ToDouble(payloadTelemetry.VOLTAGE);
+
+            //grafico altitud
+
+            arrayAltitudes.Add(payloadTelemetry.MissionTime, Convert.ToInt32(payloadTelemetry.Altitude));//agrega el nuevo elemento al array
+            chartAltitude.Series["Series1"].Points.Clear(); //limpia el grafico
+
+            foreach (KeyValuePair<string, int> d in arrayAltitudes)
+            {
+                chartAltitude.Series["Series1"].Points.AddXY(d.Key, d.Value); //dibuja el grafico desde cero, con el nuevo valor incluido
+            }
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -373,8 +439,13 @@ namespace Cansat2023
 
         }
 
-     
-
-        
+        private void btnDisconnect_Click(object sender, EventArgs e)
+        {
+            if (serialPort1.IsOpen)
+            {
+                serialPort1.Close();
+            }
+            btnConnect.BackColor = Color.White;
+        }
     }
 }
