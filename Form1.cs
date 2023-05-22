@@ -1,23 +1,33 @@
-﻿using System;
+﻿using System.Drawing;
+using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using System.Collections.Generic;
+using System;
+using System.IO.Ports;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
-using GMap.NET.MapProviders;
 using GMap.NET;
+using GMap.NET.MapProviders;
 using System.Net;
+using Cansat2023.Clases;
+
 namespace Cansat2023
 {
     public partial class Form1 : Form
     {
         System.Drawing.Text.PrivateFontCollection privateFonts = new System.Drawing.Text.PrivateFontCollection();
-        System.Drawing.Font font;
+        Font font;
         int stageNumber;
+        public static string export;
+        public static SerialPort _serialPort;
+        public static string portname;
+        public static List<byte> buffer = new List<byte>(); //buffer de tramas entrantes
+        public static List<byte> bufferout = new List<byte>(); //buffer de tramas salientes
+        public static List<string> telemetry = new List<string>();
+        public static int packetCount = 0;
         public Form1()
         {
             InitializeComponent();
@@ -78,8 +88,13 @@ namespace Cansat2023
             gMapControl1.MaxZoom = 17;
             gMapControl1.Zoom = 5;
 
+            export = "C:/cansat 2023/csv/"; //Direccion para ubicar el archivo csv
 
+            string[] ports = SerialPort.GetPortNames();
+            this.comboSerialPorts.Items.AddRange(ports);
         }
+
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -175,6 +190,164 @@ namespace Cansat2023
         private void button4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnConnect_Click(object sender, EventArgs e)
+        {
+            init();
+            btnConnect.BackColor = Color.PaleGreen;
+        }
+
+        static bool _continue;
+        public void init()
+        {
+            StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
+            serialPort1.PortName = portname;
+            if (!serialPort1.IsOpen)
+            {
+                serialPort1.Open();
+                serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveData); //Activa el metodo que se pone a escuchar lo que entra por el puerto serie
+            }
+
+            _continue = true;
+
+
+
+        }
+
+        private void port_OnReceiveData(object sender,
+                                  SerialDataReceivedEventArgs e)
+        {
+            while (serialPort1.BytesToRead > 1)
+            {
+                var byteReaded = serialPort1.ReadByte();
+                if (byteReaded == 0x7E)
+                {
+                    buffer.Clear();
+                    telemetry.Clear();
+                }
+                buffer.Add((byte)byteReaded);
+
+                if (buffer.Count >= 9)
+                {
+                    var buffer2 = buffer[2];
+                    byte aux;
+                    aux = (byte)(buffer[2] + 0x04);
+                    if (aux == (byte)buffer.Count) //pregunta si ya tenemos toda la trama dentro de buffer
+                    {
+                        var message = "";
+                        for (int i = 8; i < (buffer.Count - 1); i++)
+                        {
+                            message += (char)buffer[i];
+                        }
+
+                        // escribe el mensaje en el txtReceived para ser detectado por evento "txtReceived_TextChanged"
+                        SetText(message.Trim().Replace("NAN", "0"));
+                        //Split message and send to CsvHelper class to create or append 
+                        telemetry = message.Split(',').ToList();
+
+                        telemetry[2] = packetCount.ToString();
+
+
+
+
+                    }
+                }
+
+            }
+        }
+        delegate void SetTextCallback(string text);
+
+        private void SetText(string text)
+        {
+            // InvokeRequired required compares the thread ID of the
+            // calling thread to the thread ID of the creating thread.
+            // If these threads are different, it returns true.
+            if (this.txtReceived.InvokeRequired)
+            {
+                SetTextCallback d = new SetTextCallback(SetText);
+                this.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                this.txtReceived.Text = text;
+            }
+        }
+
+
+        private void comboSerialPorts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            portname = this.comboSerialPorts.Text; //guarda en la variable global el puerto que se eligio
+        }
+
+        private void txtReceived_TextChanged(object sender, EventArgs e)
+        {
+            packetCount++; //suma un paquete recibido
+            fillForm(txtReceived.Text.Split(',').ToList()); //muestra los datos en pantalla
+
+            Cansat2023.CsvHelper.writeCsvFromList(txtReceived.Text.Split(',').ToList(), export); //escribe los datos en un CSV file
+        }
+
+        public void fillForm(List<string> telemetryList)
+        {
+            Payload payloadTelemetry = new Payload
+            {
+                TeamId = telemetryList[0],
+                MissionTime = telemetryList[1],
+                PacketCount = telemetryList[2],
+                Mode = telemetryList[3],
+                State = telemetryList[4],
+                Altitude = telemetryList[5],
+                HS_DEPLOYED = telemetryList[6],
+                PC_DEPLOYED = telemetryList[7],
+                MAST_RAISED = telemetryList[8],
+                TEMPERATURE = telemetryList[9],
+                PRESSURE = telemetryList[10],
+                VOLTAGE = telemetryList[11],
+                GPS_TIME = telemetryList[12],
+                GPS_ALTITUDE = telemetryList[13].Trim() == "NAN" ? "0" : telemetryList[13],
+                GPS_LATITUDE = telemetryList[14].Trim() == "NAN" ? "0" : telemetryList[14],
+                GPS_LONGITUDE = telemetryList[15].Trim() == "NAN" ? "0" : telemetryList[15],
+                GPS_SATS = telemetryList[16] == "NAN" ? "0" : telemetryList[16],
+                TILT_XTILT_Y = telemetryList[17] + ", " + telemetryList[18],
+                CMD_ECHO = telemetryList[19]
+            };
+
+            lblMissionTime.Text = payloadTelemetry.MissionTime;
+            lblPacketCount.Text = payloadTelemetry.PacketCount;
+            velocimetroTemp.Speed = Convert.ToDouble(payloadTelemetry.TEMPERATURE);
+        }
+
+        private void btnSend_Click(object sender, EventArgs e)
+        {
+            bufferout.Clear();
+            bufferout.Add(0x7E);
+            bufferout.Add(0x00);
+            bufferout.Add((byte)(txtCommand.Text.Length + 5));
+            bufferout.Add(0x01);
+            bufferout.Add(0x01);
+            bufferout.Add(0x00); //0x01 
+            bufferout.Add(0x10); //0x11
+            bufferout.Add(0x00);
+
+            for (int i = 0; i < txtCommand.Text.Length; i++)
+            {
+                bufferout.Add((byte)txtCommand.Text[i]);
+            }
+            byte chkaux = 0;
+            for (int i = 3; i < txtCommand.Text.Length + 8; i++)
+            {
+                chkaux += bufferout[i];
+            }
+            chkaux = (byte)(0xFF - chkaux);
+            bufferout.Add(chkaux);
+            if (!serialPort1.IsOpen)
+            {
+                serialPort1.Open();
+
+            }
+            serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+            
         }
     }
 }
