@@ -11,6 +11,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GMap.NET;
 using GMap.NET.MapProviders;
+using GMap.NET.WindowsForms;
+using GMap.NET.WindowsForms.Markers;
 using System.Net;
 using Cansat2023.Clases;
 
@@ -28,6 +30,7 @@ namespace Cansat2023
         public static List<byte> bufferout = new List<byte>(); //buffer de tramas salientes
         public static List<string> telemetry = new List<string>();
         public static int packetCount = 0;
+        GMapOverlay markers = new GMapOverlay("markers"); //Se crea una capa "marcadores"
         Dictionary<string, int> arrayAltitudes = new Dictionary<string, int>(); //Array de datos para el grafico
         public Form1()
         {
@@ -59,20 +62,29 @@ namespace Cansat2023
             arrayAltitudes.Clear(); // inicializa el arrayAltitudes
 
 
-            //EJEMPLO USO DEL MAPA
+            //USO DEL MAPA
             gMapControl1.Manager.Mode = AccessMode.ServerAndCache; // modo de trabajo GMap
             gMapControl1.AutoScroll = true;
             gMapControl1.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             gMapControl1.DragButton = MouseButtons.Left;
+            GMapMarker marker = new GMarkerGoogle(new PointLatLng(-24.789300, -65.410320), GMarkerGoogleType.blue_pushpin);
+            marker.ToolTipText = "CanSat is here";
+            marker.ToolTip.Fill = new SolidBrush(Color.FromArgb(100, Color.Black));
+            marker.ToolTip.Foreground = Brushes.White;
+            marker.ToolTip.TextPadding = new Size(15, 8);
 
-            // Establecer el centro del mapa usando latitud y longitud
+            markers.Markers.Add(marker); //Añadimos el marcador a la capa
+
             //gMapControl1.MapProvider = OpenStreet4UMapProvider.Instance; // Establecer la fuente del mapa
             // gMapControl1.Position = new GMap.NET.PointLatLng(39.923518, 116.539009);
             //gMapControl1.SetPositionByKeywords("Argentina"); // posición central del mapa
+
             gMapControl1.Position = new GMap.NET.PointLatLng(-24.789300, -65.410320);
             gMapControl1.MinZoom = 3;
             gMapControl1.MaxZoom = 17;
             gMapControl1.Zoom = 15;
+
+            gMapControl1.Overlays.Add(markers); // Añadir capa al mapa
 
             export = "C:/cansat 2023/csv/"; //Direccion para ubicar el archivo csv
 
@@ -472,6 +484,17 @@ namespace Cansat2023
             gMapControl1.MinZoom = 3;
             gMapControl1.MaxZoom = 17;
             gMapControl1.Zoom = 15;
+
+            //Agrego marcador
+            GMapMarker marker = new GMarkerGoogle(new PointLatLng(lat, longitud), GMarkerGoogleType.blue_pushpin);
+            marker.ToolTipText = "CanSat is here";
+            marker.ToolTip.Fill = new SolidBrush(Color.FromArgb(100, Color.Black));
+            marker.ToolTip.Foreground = Brushes.White;
+            marker.ToolTip.TextPadding = new Size(15, 8);
+
+            markers.Markers.Add(marker); //Añadimos el marcador a la capa
+
+            gMapControl1.Overlays.Add(markers); // Añadir capa al mapa
         }
     }
 }
