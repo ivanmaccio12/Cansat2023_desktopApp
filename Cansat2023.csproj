@@ -114,7 +114,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\Container.cs" />
     <Compile Include="Clases\Payload.cs" />
     <Compile Include="CsvHelper.cs" />
     <Compile Include="Form1.cs">
