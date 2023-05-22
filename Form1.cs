@@ -56,22 +56,6 @@ namespace Cansat2023
             chartAltitude.Series["Series1"].BorderWidth = 2; // Borde de la grafica
             chartAltitude.Series["Series1"].Color = Color.DarkRed; // Color de la grafica
 
-            Dictionary<string, int> dic = new Dictionary<string, int>();
-            dic.Add("00:00:02", 576);
-            dic.Add("00:00:03", 687);
-            dic.Add("00:00:04", 761);
-            dic.Add("00:00:05", 860);
-            dic.Add("00:00:06", 774);
-            dic.Add("00:00:07", 576);
-            dic.Add("00:00:08", 487);
-            dic.Add("00:00:09", 261);
-            dic.Add("00:00:10", 200);
-            dic.Add("00:00:11", 174);
-
-            foreach (KeyValuePair<string, int> d in dic)
-            {
-                chartAltitude.Series["Series1"].Points.AddXY(d.Key, d.Value);
-            }
 
             //EJEMPLO USO DEL MAPA
             gMapControl1.Manager.Mode = AccessMode.ServerAndCache; // modo de trabajo GMap
@@ -315,7 +299,14 @@ namespace Cansat2023
 
             lblMissionTime.Text = payloadTelemetry.MissionTime;
             lblPacketCount.Text = payloadTelemetry.PacketCount;
+
+            //velocimetros
             velocimetroTemp.Speed = Convert.ToDouble(payloadTelemetry.TEMPERATURE);
+            velocimetroPressure.Speed = Convert.ToDouble(payloadTelemetry.PRESSURE);
+            velocimetroVoltage.Speed = Convert.ToDouble(payloadTelemetry.VOLTAGE);
+
+            //grafico altitud
+            chartAltitude.Series["Series1"].Points.AddXY(Convert.ToDateTime(payloadTelemetry.MissionTime),Convert.ToInt32(payloadTelemetry.Altitude));
         }
 
         private void btnSend_Click(object sender, EventArgs e)
