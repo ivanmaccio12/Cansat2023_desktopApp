@@ -112,6 +112,7 @@ namespace Cansat2023
 
         private void cambiarImagenStage(string stage)
         {
+            //Modificar de acuerdo a qué estados llegan
             switch (stage)
             {
                 case "LAUNCH_WAIT":
@@ -361,7 +362,6 @@ namespace Cansat2023
 
             lblMissionTime.Text = payloadTelemetry.MissionTime;
             lblPacketCount.Text = payloadTelemetry.PacketCount;
-            lblMode.Text = payloadTelemetry.Mode;
             lblGPSTime.Text = payloadTelemetry.GPS_TIME;
             lblGPSAlt.Text = payloadTelemetry.GPS_ALTITUDE;
             lblGPSLat.Text = payloadTelemetry.GPS_LATITUDE;
@@ -369,6 +369,8 @@ namespace Cansat2023
             lblGPSSat.Text = payloadTelemetry.GPS_SATS;
             lblTilt.Text = payloadTelemetry.TILT_XTILT_Y;
 
+            //cambiar modo
+            cambiarMode(payloadTelemetry.Mode);
 
             //velocimetros
             velocimetroTemp.Speed = Convert.ToDouble(payloadTelemetry.TEMPERATURE);
@@ -384,6 +386,15 @@ namespace Cansat2023
             {
                 chartAltitude.Series["Series1"].Points.AddXY(d.Key, d.Value); //dibuja el grafico desde cero, con el nuevo valor incluido
             }
+
+            //Imagenes de state
+            cambiarImagenStage(payloadTelemetry.State);
+
+            //Imagenes de Flag, parachute y HS
+            cambiarImagenesDeployed(payloadTelemetry.PC_DEPLOYED, payloadTelemetry.MAST_RAISED, payloadTelemetry.HS_DEPLOYED);
+
+            //Actualizo map. FIJARSE CÓMO VIENEN LAS COORDENADAS
+            actualizarMap(Convert.ToDouble(payloadTelemetry.GPS_LATITUDE), Convert.ToDouble(payloadTelemetry.GPS_LONGITUDE));
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -434,9 +445,16 @@ namespace Cansat2023
             }
         }
 
-        private void lblGPSTime_Click(object sender, EventArgs e)
+        public void cambiarMode(string modo)
         {
-
+            if(modo == "F")
+            {
+                lblMode.Text = "Flight";
+            }
+            else
+            {
+                lblMode.Text = "Simulation";
+            }
         }
 
         private void btnDisconnect_Click(object sender, EventArgs e)
@@ -446,6 +464,14 @@ namespace Cansat2023
                 serialPort1.Close();
             }
             btnConnect.BackColor = Color.White;
+        }
+
+        public void actualizarMap(double lat, double longitud)
+        {
+            gMapControl1.Position = new GMap.NET.PointLatLng(lat, longitud);
+            gMapControl1.MinZoom = 3;
+            gMapControl1.MaxZoom = 17;
+            gMapControl1.Zoom = 8;
         }
     }
 }
