@@ -20,7 +20,7 @@ namespace Cansat2023
     {
         System.Drawing.Text.PrivateFontCollection privateFonts = new System.Drawing.Text.PrivateFontCollection();
         Font font;
-        int stageNumber;
+        string stageName;
         public static string export;
         public static SerialPort _serialPort;
         public static string portname;
@@ -40,8 +40,8 @@ namespace Cansat2023
             //FUNCIÓN PARA CAMBIAR EL ESTADO SEGÚN NÚMEROS DEL 0 AL 6. AVISAR SI FALTAN
             //0 = Despegar, 1= Ascender, 2= FirstParachute, 3= Payload 500m,4= HeatShiel, 5= SecondParachute, 6= Flag
 
-            stageNumber = 4;
-            cambiarImagenStage(stageNumber);
+            stageName = "ASCENT";
+            cambiarImagenStage(stageName);
 
             //AGREGO NUEVAS FUENTES
           
@@ -124,47 +124,47 @@ namespace Cansat2023
 
         }
 
-        private void cambiarImagenStage(int stage)
+        private void cambiarImagenStage(string stage)
         {
             switch (stage)
             {
-                case 0:
+                case "LAUNCH_WAIT":
                     lblStage.Text = "Take Off";
                     picStage.ImageLocation = @"..\..\Resources\Images\Despegando.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case 1:
+                case "ASCENT":
                     lblStage.Text = "Ascent";
                     picStage.ImageLocation = @"..\..\Resources\Images\Ascent.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
          
-                case 2:
+                case "FIRST_PARACHUTE":
                     lblStage.Text = "First Parachute";
                     picStage.ImageLocation = @"..\..\Resources\Images\FirstParachuteSmall.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case 3:
+                case "DESCENT":
                     lblStage.Text = "Payload at 500m";
                     picStage.ImageLocation = @"..\..\Resources\Images\PayloadAt500Small.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case 4:
+                case "HS_DEPLOY":
                     lblStage.Text = "Heat Shield Deploy";
                     picStage.ImageLocation = @"..\..\Resources\Images\HeatShieldDeploySmall.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case 5:
+                case "SEC_PARACHUTE":
                     lblStage.Text = "Second Parachute";
                     picStage.ImageLocation = @"..\..\Resources\Images\SecondParachuteSmall.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case 6:
+                case "FLAG":
                     lblStage.Text = "Flag Display";
                     picStage.ImageLocation = @"..\..\Resources\Images\Flag2.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -350,6 +350,22 @@ namespace Cansat2023
             }
             serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
             
+        }
+
+        public void cambiarImagenesDeployed(string parachute, string flag, string hs)
+        {
+            if (hs == "P")
+            {
+                picHeatShield.ImageLocation = @"..\..\Resources\Images\HeatShieldDeploySmall.png";
+            }
+            if (parachute == "C")
+            {
+                picParachute.ImageLocation = @"..\..\Resources\Images\FirstParachuteSmall.png";
+            }
+            if (flag == "M")
+            {
+                picFlag.ImageLocation = @"..\..\Resources\Images\Flag2.png";
+            }
         }
 
         private void lblGPSTime_Click(object sender, EventArgs e)
