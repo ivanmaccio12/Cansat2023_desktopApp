@@ -183,22 +183,30 @@ namespace Cansat2023
         private void btnConnect_Click(object sender, EventArgs e)
         {
             init();
-            btnConnect.BackColor = Color.PaleGreen;
         }
 
         static bool _continue;
         public void init()
         {
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
-            serialPort1.PortName = portname;
-            if (!serialPort1.IsOpen)
+            if (portname != null)
             {
-                serialPort1.Open();
-                serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveData); //Activa el metodo que se pone a escuchar lo que entra por el puerto serie
-            }
+                serialPort1.PortName = portname;
+                if (!serialPort1.IsOpen)
+                {
+                    serialPort1.Open();
+                    serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveData); //Activa el metodo que se pone a escuchar lo que entra por el puerto serie
+                }
 
-            telemetryOn(); //enciende la telemetria
-            _continue = true;
+                telemetryOn(); //enciende la telemetria
+                btnConnect.BackColor = Color.PaleGreen;
+                _continue = true;
+            }
+            else
+            {
+                MessageBox.Show("You should select an Serial Port");
+            }
+            
 
 
 
