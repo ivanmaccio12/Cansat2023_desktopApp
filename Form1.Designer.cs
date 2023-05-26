@@ -51,6 +51,7 @@ namespace Cansat2023
             this.lblTitleMissionTime = new System.Windows.Forms.Label();
             this.lblTeam = new System.Windows.Forms.Label();
             this.panelTelemetry = new System.Windows.Forms.Panel();
+            this.btnTelemetryOff = new System.Windows.Forms.Button();
             this.btnOnTelemetry = new System.Windows.Forms.Button();
             this.lblCommand = new System.Windows.Forms.Label();
             this.lblReceived = new System.Windows.Forms.Label();
@@ -168,6 +169,7 @@ namespace Cansat2023
             // 
             // btnDisconnect
             // 
+            this.btnDisconnect.Enabled = false;
             this.btnDisconnect.Font = new System.Drawing.Font("Impact", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDisconnect.Location = new System.Drawing.Point(30, 65);
             this.btnDisconnect.Name = "btnDisconnect";
@@ -285,6 +287,7 @@ namespace Cansat2023
             // 
             this.panelTelemetry.BackColor = System.Drawing.Color.White;
             this.panelTelemetry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTelemetry.Controls.Add(this.btnTelemetryOff);
             this.panelTelemetry.Controls.Add(this.btnOnTelemetry);
             this.panelTelemetry.Controls.Add(this.lblCommand);
             this.panelTelemetry.Controls.Add(this.lblReceived);
@@ -300,6 +303,18 @@ namespace Cansat2023
             this.panelTelemetry.Name = "panelTelemetry";
             this.panelTelemetry.Size = new System.Drawing.Size(1326, 121);
             this.panelTelemetry.TabIndex = 5;
+            // 
+            // btnTelemetryOff
+            // 
+            this.btnTelemetryOff.Enabled = false;
+            this.btnTelemetryOff.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTelemetryOff.Location = new System.Drawing.Point(226, 6);
+            this.btnTelemetryOff.Name = "btnTelemetryOff";
+            this.btnTelemetryOff.Size = new System.Drawing.Size(83, 23);
+            this.btnTelemetryOff.TabIndex = 18;
+            this.btnTelemetryOff.Text = "Off Telemetry";
+            this.btnTelemetryOff.UseVisualStyleBackColor = true;
+            this.btnTelemetryOff.Click += new System.EventHandler(this.btnTelemetryOff_Click);
             // 
             // btnOnTelemetry
             // 
@@ -973,6 +988,7 @@ namespace Cansat2023
         private System.Windows.Forms.Label lblTitleGPSAltitude;
         private System.Windows.Forms.Label lblTitleGPSTime;
         private System.Windows.Forms.Button btnOnTelemetry;
+        private System.Windows.Forms.Button btnTelemetryOff;
     }
 }
 

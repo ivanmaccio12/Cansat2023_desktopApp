@@ -242,6 +242,7 @@ namespace Cansat2023
 
                 //telemetryOn(); //enciende la telemetria
                 btnOnTelemetry.Enabled = true;
+                btnTelemetryOff.Enabled = true;
                 btnConnect.BackColor = Color.PaleGreen;
                 _continue = true;
             }
@@ -257,89 +258,40 @@ namespace Cansat2023
 
         private void telemetryOn ()
         {
-            try
+            string cmd = "CMD,1022,CX,ON";
+
+            bufferout.Clear();
+            bufferout.Add(0x7E);
+            bufferout.Add(0x00);
+            bufferout.Add((byte)(cmd.Length + 5));
+            bufferout.Add(0x01);
+            bufferout.Add(0x01);
+            bufferout.Add(0x00); //0x01 
+            bufferout.Add(0x10); //0x11
+            bufferout.Add(0x00);
+
+            for (int i = 0; i < cmd.Length; i++)
             {
-                if (txtReceived.Text == "")
-                {
-                    string cmd = "CMD,1022,CX,ON";
-
-                    bufferout.Clear();
-                    bufferout.Add(0x7E);
-                    bufferout.Add(0x00);
-                    bufferout.Add((byte)(cmd.Length + 5));
-                    bufferout.Add(0x01);
-                    bufferout.Add(0x01);
-                    bufferout.Add(0x00); //0x01 
-                    bufferout.Add(0x10); //0x11
-                    bufferout.Add(0x00);
-
-                    for (int i = 0; i < cmd.Length; i++)
-                    {
-                        bufferout.Add((byte)cmd[i]);
-                    }
-                    byte chkaux = 0;
-                    for (int i = 3; i < cmd.Length + 8; i++)
-                    {
-                        chkaux += bufferout[i];
-                    }
-                    chkaux = (byte)(0xFF - chkaux);
-                    bufferout.Add(chkaux);
-
-                    if (!serialPort1.IsOpen)
-                    {
-                        serialPort1.Open();
-
-                    }
-                    serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
-                }
+                bufferout.Add((byte)cmd[i]);
             }
-            catch (Exception ex)
+            byte chkaux = 0;
+            for (int i = 3; i < cmd.Length + 8; i++)
             {
-                MessageBox.Show(ex.Message);
+                chkaux += bufferout[i];
             }
+            chkaux = (byte)(0xFF - chkaux);
+            bufferout.Add(chkaux);
+
+            if (!serialPort1.IsOpen)
+            {
+                serialPort1.Open();
+
+            }
+            serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+            
+           
         }
 
-        private void telemetryOff()
-        {
-            try
-            {
-                    string cmd = "CMD,1022,CX,OFF";
-
-                    bufferout.Clear();
-                    bufferout.Add(0x7E);
-                    bufferout.Add(0x00);
-                    bufferout.Add((byte)(cmd.Length + 5));
-                    bufferout.Add(0x01);
-                    bufferout.Add(0x01);
-                    bufferout.Add(0x00); //0x01 
-                    bufferout.Add(0x10); //0x11
-                    bufferout.Add(0x00);
-
-                    for (int i = 0; i < cmd.Length; i++)
-                    {
-                        bufferout.Add((byte)cmd[i]);
-                    }
-                    byte chkaux = 0;
-                    for (int i = 3; i < cmd.Length + 8; i++)
-                    {
-                        chkaux += bufferout[i];
-                    }
-                    chkaux = (byte)(0xFF - chkaux);
-                    bufferout.Add(chkaux);
-                    if (!serialPort1.IsOpen)
-                    {
-                        serialPort1.Open();
-                    }
-                    serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
-                
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
         private void port_OnReceiveData(object sender,
                                   SerialDataReceivedEventArgs e)
@@ -503,7 +455,6 @@ namespace Cansat2023
 
             }
             serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
-            
         }
 
         public void cambiarImagenesDeployed(string parachute, string flag, string hs)
@@ -536,12 +487,9 @@ namespace Cansat2023
 
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
-            telemetryOff();
-            if (serialPort1.IsOpen)
-            {
-                serialPort1.Close();
-            }
+            serialPort1.Close();
             btnOnTelemetry.Enabled = false;
+            btnTelemetryOff.Enabled = false;
             btnConnect.BackColor = Color.White;
             btnOnTelemetry.BackColor = Color.White;
         }
@@ -570,10 +518,46 @@ namespace Cansat2023
 
             telemetryOn(); //enciende la telemetria
             btnOnTelemetry.BackColor = Color.PaleGreen;
+            btnOnTelemetry.Enabled = false;
+            btnTelemetryOff.Enabled = true;
             
         }
 
+        private void btnTelemetryOff_Click(object sender, EventArgs e)
+        {
+            
+            btnOnTelemetry.Enabled = true;
+            btnTelemetryOff.Enabled = false;
+            btnDisconnect.Enabled = true;
 
-       
+            string cmd = "CMD,1022,CX,OFF";
+
+            bufferout.Clear();
+            bufferout.Add(0x7E);
+            bufferout.Add(0x00);
+            bufferout.Add((byte)(cmd.Length + 5));
+            bufferout.Add(0x01);
+            bufferout.Add(0x01);
+            bufferout.Add(0x00); //0x01 
+            bufferout.Add(0x10); //0x11
+            bufferout.Add(0x00);
+
+            for (int i = 0; i < cmd.Length; i++)
+            {
+                bufferout.Add((byte)cmd[i]);
+            }
+            byte chkaux = 0;
+            for (int i = 3; i < cmd.Length + 8; i++)
+            {
+                chkaux += bufferout[i];
+            }
+            chkaux = (byte)(0xFF - chkaux);
+            bufferout.Add(chkaux);
+            if (!serialPort1.IsOpen)
+            {
+                serialPort1.Open();
+            }
+            serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+        }
     }
 }
