@@ -32,9 +32,9 @@ namespace Cansat2023
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.lblTitleSerialPort = new System.Windows.Forms.Label();
             this.comboSerialPorts = new System.Windows.Forms.ComboBox();
@@ -51,6 +51,7 @@ namespace Cansat2023
             this.lblTitleMissionTime = new System.Windows.Forms.Label();
             this.lblTeam = new System.Windows.Forms.Label();
             this.panelTelemetry = new System.Windows.Forms.Panel();
+            this.btnOnTelemetry = new System.Windows.Forms.Button();
             this.lblCommand = new System.Windows.Forms.Label();
             this.lblReceived = new System.Windows.Forms.Label();
             this.lblTitleTelemetry = new System.Windows.Forms.Label();
@@ -284,6 +285,7 @@ namespace Cansat2023
             // 
             this.panelTelemetry.BackColor = System.Drawing.Color.White;
             this.panelTelemetry.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTelemetry.Controls.Add(this.btnOnTelemetry);
             this.panelTelemetry.Controls.Add(this.lblCommand);
             this.panelTelemetry.Controls.Add(this.lblReceived);
             this.panelTelemetry.Controls.Add(this.lblTitleTelemetry);
@@ -298,6 +300,18 @@ namespace Cansat2023
             this.panelTelemetry.Name = "panelTelemetry";
             this.panelTelemetry.Size = new System.Drawing.Size(1326, 121);
             this.panelTelemetry.TabIndex = 5;
+            // 
+            // btnOnTelemetry
+            // 
+            this.btnOnTelemetry.Enabled = false;
+            this.btnOnTelemetry.Font = new System.Drawing.Font("Impact", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOnTelemetry.Location = new System.Drawing.Point(133, 6);
+            this.btnOnTelemetry.Name = "btnOnTelemetry";
+            this.btnOnTelemetry.Size = new System.Drawing.Size(83, 23);
+            this.btnOnTelemetry.TabIndex = 17;
+            this.btnOnTelemetry.Text = "On Telemetry";
+            this.btnOnTelemetry.UseVisualStyleBackColor = true;
+            this.btnOnTelemetry.Click += new System.EventHandler(this.btnOnTelemetry_Click);
             // 
             // lblCommand
             // 
@@ -682,17 +696,17 @@ namespace Cansat2023
             // chartAltitude
             // 
             this.chartAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            chartArea4.Name = "ChartArea1";
-            this.chartAltitude.ChartAreas.Add(chartArea4);
-            legend4.Enabled = false;
-            legend4.Name = "Legend1";
-            this.chartAltitude.Legends.Add(legend4);
+            chartArea1.Name = "ChartArea1";
+            this.chartAltitude.ChartAreas.Add(chartArea1);
+            legend1.Enabled = false;
+            legend1.Name = "Legend1";
+            this.chartAltitude.Legends.Add(legend1);
             this.chartAltitude.Location = new System.Drawing.Point(47, 41);
             this.chartAltitude.Name = "chartAltitude";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            this.chartAltitude.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartAltitude.Series.Add(series1);
             this.chartAltitude.Size = new System.Drawing.Size(528, 223);
             this.chartAltitude.TabIndex = 5;
             this.chartAltitude.Text = "chart1";
@@ -704,6 +718,10 @@ namespace Cansat2023
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(462, 85);
             this.panel2.TabIndex = 8;
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.BaudRate = 19200;
             // 
             // panel3
             // 
@@ -954,6 +972,7 @@ namespace Cansat2023
         private System.Windows.Forms.Label lblTitleGPSLatitude;
         private System.Windows.Forms.Label lblTitleGPSAltitude;
         private System.Windows.Forms.Label lblTitleGPSTime;
+        private System.Windows.Forms.Button btnOnTelemetry;
     }
 }
 

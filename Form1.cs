@@ -125,10 +125,21 @@ namespace Cansat2023
         private void cambiarImagenStage(string stage)
         {
             //Modificar de acuerdo a qué estados llegan
+            /*
+            SOFTWARE_STATE="MAST_RAISED"
+            SOFTWARE_STATE="UPRIGHT"
+            SOFTWARE_STATE="LANDED"
+            SOFTWARE_STATE="SECOND_PARACHUTE_RELEASE"
+            SOFTWARE_STATE="HEAT_SHIELD_DEPLOY"
+            SOFTWARE_STATE="PROBE_RELEASE"
+            SOFTWARE_STATE="DESCENT"
+            SOFTWARE_STATE="ROCKET_SEPARATION"
+            SOFTWARE_STATE="ASCENT"
+             */
             switch (stage)
             {
                 case "LAUNCH_WAIT":
-                    lblStage.Text = "Take Off";
+                    lblStage.Text = "Launch Wait";
                     picStage.ImageLocation = @"..\..\Resources\Images\Despegando.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
@@ -138,34 +149,52 @@ namespace Cansat2023
                     picStage.ImageLocation = @"..\..\Resources\Images\Ascent.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
-         
-                case "FIRST_PARACHUTE":
-                    lblStage.Text = "First Parachute";
+
+                case "DESCENT":
+                    lblStage.Text = "Descent";
                     picStage.ImageLocation = @"..\..\Resources\Images\FirstParachuteSmall.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case "DESCENT":
-                    lblStage.Text = "Payload at 500m";
+                case "ROCKET_SEPARATION":
+                    lblStage.Text = "Rocket Separation";
+                    picStage.ImageLocation = @"..\..\Resources\Images\FirstParachuteSmall.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+                case "PROBE_RELEASE":
+                    lblStage.Text = "Probe Release";
                     picStage.ImageLocation = @"..\..\Resources\Images\PayloadAt500Small.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case "HS_DEPLOY":
+                case "HEAT_SHIELD_DEPLOY":
                     lblStage.Text = "Heat Shield Deploy";
                     picStage.ImageLocation = @"..\..\Resources\Images\HeatShieldDeploySmall.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case "SEC_PARACHUTE":
+                case "SECOND_PARACHUTE_RELEASE":
                     lblStage.Text = "Second Parachute";
                     picStage.ImageLocation = @"..\..\Resources\Images\SecondParachuteSmall.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
-                case "FLAG":
-                    lblStage.Text = "Flag Display";
+                case "LANDED":
+                    lblStage.Text = "Landed";
                     picStage.ImageLocation = @"..\..\Resources\Images\Flag2.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+                case "UPRIGHT":
+                    lblStage.Text = "Upright";
+                    picStage.ImageLocation = @"..\..\Resources\Images\Flag2.png";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
+                case "MAST_RAISED":
+                    lblStage.Text = "Mast Raised";
+                    picStage.ImageLocation = @"..\..\Resources\Images\bandArg.png";
                     picStage.SizeMode = PictureBoxSizeMode.StretchImage;
                     break;
 
@@ -211,7 +240,8 @@ namespace Cansat2023
                     serialPort1.DataReceived += new SerialDataReceivedEventHandler(port_OnReceiveData); //Activa el metodo que se pone a escuchar lo que entra por el puerto serie
                 }
 
-                telemetryOn(); //enciende la telemetria
+                //telemetryOn(); //enciende la telemetria
+                btnOnTelemetry.Enabled = true;
                 btnConnect.BackColor = Color.PaleGreen;
                 _continue = true;
             }
@@ -255,9 +285,6 @@ namespace Cansat2023
                     chkaux = (byte)(0xFF - chkaux);
                     bufferout.Add(chkaux);
 
-
-
-
                     if (!serialPort1.IsOpen)
                     {
                         serialPort1.Open();
@@ -265,6 +292,46 @@ namespace Cansat2023
                     }
                     serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void telemetryOff()
+        {
+            try
+            {
+                    string cmd = "CMD,1022,CX,OFF";
+
+                    bufferout.Clear();
+                    bufferout.Add(0x7E);
+                    bufferout.Add(0x00);
+                    bufferout.Add((byte)(cmd.Length + 5));
+                    bufferout.Add(0x01);
+                    bufferout.Add(0x01);
+                    bufferout.Add(0x00); //0x01 
+                    bufferout.Add(0x10); //0x11
+                    bufferout.Add(0x00);
+
+                    for (int i = 0; i < cmd.Length; i++)
+                    {
+                        bufferout.Add((byte)cmd[i]);
+                    }
+                    byte chkaux = 0;
+                    for (int i = 3; i < cmd.Length + 8; i++)
+                    {
+                        chkaux += bufferout[i];
+                    }
+                    chkaux = (byte)(0xFF - chkaux);
+                    bufferout.Add(chkaux);
+                    if (!serialPort1.IsOpen)
+                    {
+                        serialPort1.Open();
+                    }
+                    serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+                
 
 
             }
@@ -272,7 +339,7 @@ namespace Cansat2023
             {
                 MessageBox.Show(ex.Message);
             }
-        }   
+        }
 
         private void port_OnReceiveData(object sender,
                                   SerialDataReceivedEventArgs e)
@@ -306,8 +373,6 @@ namespace Cansat2023
                         telemetry = message.Split(',').ToList();
 
                         telemetry[2] = packetCount.ToString();
-
-
 
 
                     }
@@ -471,11 +536,14 @@ namespace Cansat2023
 
         private void btnDisconnect_Click(object sender, EventArgs e)
         {
+            telemetryOff();
             if (serialPort1.IsOpen)
             {
                 serialPort1.Close();
             }
+            btnOnTelemetry.Enabled = false;
             btnConnect.BackColor = Color.White;
+            btnOnTelemetry.BackColor = Color.White;
         }
 
         public void actualizarMap(double lat, double longitud)
@@ -496,5 +564,16 @@ namespace Cansat2023
 
             gMapControl1.Overlays.Add(markers); // Añadir capa al mapa
         }
+
+        private void btnOnTelemetry_Click(object sender, EventArgs e)
+        {
+
+            telemetryOn(); //enciende la telemetria
+            btnOnTelemetry.BackColor = Color.PaleGreen;
+            
+        }
+
+
+       
     }
 }
