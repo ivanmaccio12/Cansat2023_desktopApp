@@ -31,7 +31,7 @@ namespace Cansat2023
         public static List<string> telemetry = new List<string>();
         public static int packetCount = 0;
         GMapOverlay markers = new GMapOverlay("markers"); //Se crea una capa "marcadores"
-        Dictionary<string, int> arrayAltitudes = new Dictionary<string, int>(); //Array de datos para el grafico
+        Dictionary<string, double> arrayAltitudes = new Dictionary<string, double>(); //Array de datos para el grafico
         public Form1()
         {
             InitializeComponent();
@@ -423,10 +423,10 @@ namespace Cansat2023
 
             //grafico altitud
 
-            arrayAltitudes.Add(payloadTelemetry.MissionTime, Convert.ToInt32(payloadTelemetry.Altitude));//agrega el nuevo elemento al array
+            arrayAltitudes.Add(payloadTelemetry.MissionTime, Convert.ToDouble(payloadTelemetry.Altitude));//agrega el nuevo elemento al array
             chartAltitude.Series["Series1"].Points.Clear(); //limpia el grafico
 
-            foreach (KeyValuePair<string, int> d in arrayAltitudes)
+            foreach (KeyValuePair<string, double> d in arrayAltitudes)
             {
                 chartAltitude.Series["Series1"].Points.AddXY(d.Key, d.Value); //dibuja el grafico desde cero, con el nuevo valor incluido
             }
