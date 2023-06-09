@@ -44,7 +44,7 @@ namespace Cansat2023
             //FUNCIÓN PARA CAMBIAR EL ESTADO SEGÚN NÚMEROS DEL 0 AL 6. AVISAR SI FALTAN
             //0 = Despegar, 1= Ascender, 2= FirstParachute, 3= Payload 500m,4= HeatShiel, 5= SecondParachute, 6= Flag
 
-            stageName = "ASCENT";
+            stageName = "BOOT";
             cambiarImagenStage(stageName);
 
             //AGREGO NUEVAS FUENTES
@@ -138,6 +138,12 @@ namespace Cansat2023
              */
             switch (stage)
             {
+                case "BOOT":
+                    lblStage.Text = "Boot";
+                    picStage.ImageLocation = @"..\..\Resources\Images\LogoCansatSmall.jpg";
+                    picStage.SizeMode = PictureBoxSizeMode.StretchImage;
+                    break;
+
                 case "LAUNCH_WAIT":
                     lblStage.Text = "Launch Wait";
                     picStage.ImageLocation = @"..\..\Resources\Images\Despegando.png";
@@ -202,20 +208,14 @@ namespace Cansat2023
             
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void button2_Click(object sender, EventArgs e)
         {
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-
-        }
+     
 
         private void button4_Click(object sender, EventArgs e)
         {
@@ -233,6 +233,13 @@ namespace Cansat2023
             StringComparer stringComparer = StringComparer.OrdinalIgnoreCase;
             if (portname != null)
             {
+                btnBuzzer.Enabled = true;
+                btnHSHigh.Enabled = true;
+                btnHSMid.Enabled = true;
+                btnMastRaised.Enabled = true;
+                btnParachuteRelease.Enabled = true;
+                btnPLRelease.Enabled = true;
+                
                 serialPort1.PortName = portname;
                 if (!serialPort1.IsOpen)
                 {
@@ -258,6 +265,12 @@ namespace Cansat2023
 
         private void telemetryOn ()
         {
+            //Comportamiento botones
+            btnOnTelemetry.BackColor = Color.PaleGreen;
+            btnOnTelemetry.Enabled = false;
+            btnTelemetryOff.Enabled = true;
+
+            //Iniciar Telemetria
             string cmd = "CMD,1022,CX,ON";
 
             bufferout.Clear();
@@ -562,5 +575,117 @@ namespace Cansat2023
             }
             serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
         }
+
+        private void btnSimEnable_Click(object sender, EventArgs e)
+        {
+            //Empieza a escuchar
+            telemetryOn();
+
+            //Comando Enable
+            string cmd = "CMD,1022,SIM,ENABLE";
+
+            bufferout.Clear();
+            bufferout.Add(0x7E);
+            bufferout.Add(0x00);
+            bufferout.Add((byte)(cmd.Length + 5));
+            bufferout.Add(0x01);
+            bufferout.Add(0x01);
+            bufferout.Add(0x00); //0x01 
+            bufferout.Add(0x10); //0x11
+            bufferout.Add(0x00);
+
+            for (int i = 0; i < cmd.Length; i++)
+            {
+                bufferout.Add((byte)cmd[i]);
+            }
+            byte chkaux = 0;
+            for (int i = 3; i < cmd.Length + 8; i++)
+            {
+                chkaux += bufferout[i];
+            }
+            chkaux = (byte)(0xFF - chkaux);
+            bufferout.Add(chkaux);
+
+            if (!serialPort1.IsOpen)
+            {
+                serialPort1.Open();
+
+            }
+            serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+
+        }
+
+        private void btnSimActivate_Click(object sender, EventArgs e)
+        {
+            //Comando Activate
+            string cmd = "CMD,1022,SIM,ACTIVATE";
+            sendBtnCmd(cmd);
+        }
+
+        public void sendBtnCmd(string cmd)
+        {
+            //Faltan migrar los botones de Sim ENABLE 
+            bufferout.Clear();
+            bufferout.Add(0x7E);
+            bufferout.Add(0x00);
+            bufferout.Add((byte)(cmd.Length + 5));
+            bufferout.Add(0x01);
+            bufferout.Add(0x01);
+            bufferout.Add(0x00); //0x01 
+            bufferout.Add(0x10); //0x11
+            bufferout.Add(0x00);
+
+            for (int i = 0; i < cmd.Length; i++)
+            {
+                bufferout.Add((byte)cmd[i]);
+            }
+            byte chkaux = 0;
+            for (int i = 3; i < cmd.Length + 8; i++)
+            {
+                chkaux += bufferout[i];
+            }
+            chkaux = (byte)(0xFF - chkaux);
+            bufferout.Add(chkaux);
+
+            if (!serialPort1.IsOpen)
+            {
+                serialPort1.Open();
+
+            }
+            serialPort1.Write(bufferout.ToArray(), 0, bufferout.Count);
+
+        }
+
+        
+        private void btnHSMid_Click(object sender, EventArgs e)
+        {
+            string cmd = "HEATSHIELD,MID";
+            sendBtnCmd(cmd);
+        }
+
+        private void btnHSHigh_Click(object sender, EventArgs e)
+        {
+            string cmd = "HEATSHIELD,HIGH";
+            sendBtnCmd(cmd);
+        }
+
+        private void btnPLRelease_Click(object sender, EventArgs e)
+        {
+            string cmd = "SECOND_PARACHUTE_RELEASE";
+            sendBtnCmd(cmd);
+        }
+
+        private void btnMastRaised_Click(object sender, EventArgs e)
+        {
+            string cmd = "MAST_RAISED";
+            sendBtnCmd(cmd);
+        }
+
+        private void btnBuzzer_Click(object sender, EventArgs e)
+        {
+            string cmd = "BUZZER";
+            sendBtnCmd(cmd);
+        }
+
     }
 }
