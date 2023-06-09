@@ -296,6 +296,7 @@ namespace Cansat2023
         private void port_OnReceiveData(object sender,
                                   SerialDataReceivedEventArgs e)
         {
+            
             while (serialPort1.BytesToRead > 1)
             {
                 var byteReaded = serialPort1.ReadByte();
@@ -342,6 +343,7 @@ namespace Cansat2023
             if (this.txtReceived.InvokeRequired)
             {
                 SetTextCallback d = new SetTextCallback(SetText);
+                
                 this.Invoke(d, new object[] { text });
             }
             else
@@ -496,6 +498,7 @@ namespace Cansat2023
 
         public void actualizarMap(double lat, double longitud)
         {
+            markers.Markers.Clear();
             gMapControl1.Position = new GMap.NET.PointLatLng(lat, longitud);
             gMapControl1.MinZoom = 3;
             gMapControl1.MaxZoom = 17;
@@ -509,7 +512,7 @@ namespace Cansat2023
             marker.ToolTip.TextPadding = new Size(15, 8);
 
             markers.Markers.Add(marker); //Añadimos el marcador a la capa
-
+            
             gMapControl1.Overlays.Add(markers); // Añadir capa al mapa
         }
 
