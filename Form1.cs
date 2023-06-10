@@ -659,13 +659,13 @@ namespace Cansat2023
         
         private void btnHSMid_Click(object sender, EventArgs e)
         {
-            string cmd = "HEATSHIELD,MID";
+            string cmd = "HEATSHIELD_MID";
             sendBtnCmd(cmd);
         }
 
         private void btnHSHigh_Click(object sender, EventArgs e)
         {
-            string cmd = "HEATSHIELD,HIGH";
+            string cmd = "HEATSHIELD_HIGH";
             sendBtnCmd(cmd);
         }
 
