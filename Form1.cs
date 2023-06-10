@@ -239,6 +239,8 @@ namespace Cansat2023
                 btnMastRaised.Enabled = true;
                 btnParachuteRelease.Enabled = true;
                 btnPLRelease.Enabled = true;
+                btnSimActivate.Enabled = true;
+                btnSimEnable.Enabled = true;
                 
                 serialPort1.PortName = portname;
                 if (!serialPort1.IsOpen)

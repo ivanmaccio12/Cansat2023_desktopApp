@@ -32,9 +32,9 @@ namespace Cansat2023
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panelHeader = new System.Windows.Forms.Panel();
             this.lblTitleSerialPort = new System.Windows.Forms.Label();
             this.comboSerialPorts = new System.Windows.Forms.ComboBox();
@@ -453,6 +453,7 @@ namespace Cansat2023
             // 
             // btnSimActivate
             // 
+            this.btnSimActivate.Enabled = false;
             this.btnSimActivate.Font = new System.Drawing.Font("Stencil", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSimActivate.Location = new System.Drawing.Point(1206, 8);
             this.btnSimActivate.Name = "btnSimActivate";
@@ -481,6 +482,7 @@ namespace Cansat2023
             // 
             // btnSimEnable
             // 
+            this.btnSimEnable.Enabled = false;
             this.btnSimEnable.Font = new System.Drawing.Font("Stencil", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSimEnable.Location = new System.Drawing.Point(1101, 8);
             this.btnSimEnable.Name = "btnSimEnable";
@@ -770,17 +772,17 @@ namespace Cansat2023
             // chartAltitude
             // 
             this.chartAltitude.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            chartArea1.Name = "ChartArea1";
-            this.chartAltitude.ChartAreas.Add(chartArea1);
-            legend1.Enabled = false;
-            legend1.Name = "Legend1";
-            this.chartAltitude.Legends.Add(legend1);
+            chartArea3.Name = "ChartArea1";
+            this.chartAltitude.ChartAreas.Add(chartArea3);
+            legend3.Enabled = false;
+            legend3.Name = "Legend1";
+            this.chartAltitude.Legends.Add(legend3);
             this.chartAltitude.Location = new System.Drawing.Point(47, 41);
             this.chartAltitude.Name = "chartAltitude";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartAltitude.Series.Add(series1);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.chartAltitude.Series.Add(series3);
             this.chartAltitude.Size = new System.Drawing.Size(528, 223);
             this.chartAltitude.TabIndex = 5;
             this.chartAltitude.Text = "chart1";
