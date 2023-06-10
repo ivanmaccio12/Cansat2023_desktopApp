@@ -671,7 +671,7 @@ namespace Cansat2023
 
         private void btnPLRelease_Click(object sender, EventArgs e)
         {
-            string cmd = "SECOND_PARACHUTE_RELEASE";
+            string cmd = "PROBERELEASE";
             sendBtnCmd(cmd);
         }
 
@@ -687,5 +687,10 @@ namespace Cansat2023
             sendBtnCmd(cmd);
         }
 
+        private void btnParachuteRelease_Click(object sender, EventArgs e)
+        {
+            string cmd = "SECOND_PARACHUTE_RELEASE";
+            sendBtnCmd(cmd);
+        }
     }
 }

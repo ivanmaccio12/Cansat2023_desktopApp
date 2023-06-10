@@ -347,6 +347,7 @@ namespace Cansat2023
             this.btnParachuteRelease.TabIndex = 20;
             this.btnParachuteRelease.Text = "PARACHUTE";
             this.btnParachuteRelease.UseVisualStyleBackColor = true;
+            this.btnParachuteRelease.Click += new System.EventHandler(this.btnParachuteRelease_Click);
             // 
             // btnPLRelease
             // 
@@ -423,7 +424,7 @@ namespace Cansat2023
             this.btnHSHigh.Name = "btnHSHigh";
             this.btnHSHigh.Size = new System.Drawing.Size(99, 21);
             this.btnHSHigh.TabIndex = 6;
-            this.btnHSHigh.Text = "HS HIGH";
+            this.btnHSHigh.Text = "HS CLOSE";
             this.btnHSHigh.UseVisualStyleBackColor = true;
             this.btnHSHigh.Click += new System.EventHandler(this.btnHSHigh_Click);
             // 
@@ -446,7 +447,7 @@ namespace Cansat2023
             this.btnHSMid.Name = "btnHSMid";
             this.btnHSMid.Size = new System.Drawing.Size(99, 21);
             this.btnHSMid.TabIndex = 4;
-            this.btnHSMid.Text = "HS MID";
+            this.btnHSMid.Text = "HS OPEN";
             this.btnHSMid.UseVisualStyleBackColor = true;
             this.btnHSMid.Click += new System.EventHandler(this.btnHSMid_Click);
             // 
