@@ -556,7 +556,7 @@ namespace Cansat2023
             this.velocimetroVoltage.GaugeColor = System.Drawing.Color.Black;
             this.velocimetroVoltage.GaugeThickness = 3;
             this.velocimetroVoltage.Location = new System.Drawing.Point(438, 26);
-            this.velocimetroVoltage.MaxSpeed = 100D;
+            this.velocimetroVoltage.MaxSpeed = 9D;
             this.velocimetroVoltage.MinSpeed = 0D;
             this.velocimetroVoltage.Name = "velocimetroVoltage";
             this.velocimetroVoltage.NeedleColor = System.Drawing.Color.Red;

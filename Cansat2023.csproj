@@ -135,6 +135,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -160,6 +161,7 @@
     <Content Include="Resources\Images\FirstParachute.png" />
     <Content Include="Resources\Images\FirstParachuteSmall.png" />
     <Content Include="Resources\Images\FirstParachuteSmallTransp.png" />
+    <Content Include="Resources\Images\flag-football.png" />
     <Content Include="Resources\Images\Flag1.png" />
     <Content Include="Resources\Images\Flag2.png" />
     <Content Include="Resources\Images\Flag2Transp.png" />
@@ -168,6 +170,7 @@
     <Content Include="Resources\Images\HeatShieldDeploySmallTransp.png" />
     <Content Include="Resources\Images\LogoCansat.jfif" />
     <Content Include="Resources\Images\LogoCansatSmall.jpg" />
+    <Content Include="Resources\Images\paracaidas.png" />
     <Content Include="Resources\Images\PayloadAt500.png" />
     <Content Include="Resources\Images\PayloadAt500Small.png" />
     <Content Include="Resources\Images\PayloadAt500SmallTransp.png" />

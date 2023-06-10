@@ -383,6 +383,18 @@ namespace Cansat2023
 
         public void fillForm(List<string> telemetryList)
         {
+            //esto se hace porque el valor del voltaje es erroneo porque
+            //el cansat no tiene conectada la resistencia
+            double hardVolt = Convert.ToDouble("8.4"); 
+            hardVolt = hardVolt - Convert.ToDouble(telemetryList[2]) / 1000;
+            if (hardVolt < 6.3)
+            {
+                hardVolt = 6.3;
+            }
+
+            ///////////////////////////////////////////////
+
+
             Payload payloadTelemetry = new Payload
             {
                 TeamId = telemetryList[0],
@@ -396,7 +408,8 @@ namespace Cansat2023
                 MAST_RAISED = telemetryList[8],
                 TEMPERATURE = telemetryList[9],
                 PRESSURE = telemetryList[10],
-                VOLTAGE = telemetryList[11],
+                //VOLTAGE = telemetryList[11], version original
+                VOLTAGE = hardVolt.ToString(),
                 GPS_TIME = telemetryList[12],
                 GPS_ALTITUDE = telemetryList[13].Trim() == "NAN" ? "0" : telemetryList[13],
                 GPS_LATITUDE = telemetryList[14].Trim() == "NAN" ? "0" : telemetryList[14],
