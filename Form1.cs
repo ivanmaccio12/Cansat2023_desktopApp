@@ -67,7 +67,7 @@ namespace Cansat2023
             gMapControl1.AutoScroll = true;
             gMapControl1.MapProvider = GMap.NET.MapProviders.GoogleMapProvider.Instance;
             gMapControl1.DragButton = MouseButtons.Left;
-            GMapMarker marker = new GMarkerGoogle(new PointLatLng(-24.789300, -65.410320), GMarkerGoogleType.blue_pushpin);
+            GMapMarker marker = new GMarkerGoogle(new PointLatLng(37.1966985, -80.5790168), GMarkerGoogleType.blue_pushpin);
             marker.ToolTipText = "CanSat is here";
             marker.ToolTip.Fill = new SolidBrush(Color.FromArgb(100, Color.Black));
             marker.ToolTip.Foreground = Brushes.White;
@@ -79,7 +79,7 @@ namespace Cansat2023
             // gMapControl1.Position = new GMap.NET.PointLatLng(39.923518, 116.539009);
             //gMapControl1.SetPositionByKeywords("Argentina"); // posición central del mapa
 
-            gMapControl1.Position = new GMap.NET.PointLatLng(-24.789300, -65.410320);
+            gMapControl1.Position = new GMap.NET.PointLatLng(37.1966985, -80.5790168);
             gMapControl1.MinZoom = 3;
             gMapControl1.MaxZoom = 17;
             gMapControl1.Zoom = 15;
